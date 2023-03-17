@@ -18,7 +18,7 @@ For our training data we have a comma separated values file containing 'Sr no.�
 
 ● Derived variables 1) The ‘sender’ column has been derived by combining string columns 'org' and 'tld'. derived variable being 'sender' ('org' + 'tld'). Finally, we have cleaned this by replacing the joiners and na values. 2) Log(x+1) transforms of continuous columns deriving 'log ccs', 'log images' , 'log urls', 'log subject chars', ' log body char' from respective columns present in the training data set. 3) New derived interaction feature 'pic url' obtained by ['urls' x 'images'], as we believe that there is a strong correlation between these two variables, i.e, the emails containing the images, might Also contain relevant number of urls and it will be an interesting feature to classify the type of emails into different labels.
 
-4) Furthermore, we derive Date related features from the date column as follows:
+Furthermore, we derive Date related features from the date column as follows:
 
 o We take the time stamp to derive these three features:
 a) ‘off_hrs’: The time between 0:00-8:00
