@@ -7,20 +7,33 @@ There are various classification techniques which could be implemented for email
 For our training data we have a comma separated values file containing 'Sr no.’, 'date', 'org',tld','ccs'(quantitative),'bcced'(quantitative), 'mail type'(categorical),'images'(quantitative), 'urls'(quantitative),'salutation'(binary),'designation'(binary),'chars_in_subject'(quantitative), 'chars_in_body'(quantitative) and 'label'(0-7). Hence, for our test data we have all these specified variables (except label) over which we intend to train the classification algorithms to perform with optimal accuracy on our test data.
 
 # Feature Engineering and Pre-processing: 
-● Handling missing values First off, we had to fill the null values in the entire table. So, numerical columns have been replaced with '0' and characters by 'no entry' or 'na'. ● Standardization of data Also, converting the strings in the entire dataset to lower case (for uniformity). ● One hot encoding We have done one hot encoding on the 'mail type' category from our data set.
+
+● Handling missing values First off, we had to fill the null values in the entire table. So, numerical columns have been replaced with '0' and characters by 'no entry' or 'na'. 
+
+● Standardization of data Also, converting the strings in the entire dataset to lower case (for uniformity). 
+
+● One hot encoding We have done one hot encoding on the 'mail type' category from our data set.
+
 ● Normalization Normalization makes sure all elements lie within zero and one. It is useful to normalize our data, given that the distribution of data is unknown. Hence, we did min-max normalisation of all the training variables.
+
 ● Derived variables 1) The ‘sender’ column has been derived by combining string columns 'org' and 'tld'. derived variable being 'sender' ('org' + 'tld'). Finally, we have cleaned this by replacing the joiners and na values. 2) Log(x+1) transforms of continuous columns deriving 'log ccs', 'log images' , 'log urls', 'log subject chars', ' log body char' from respective columns present in the training data set. 3) New derived interaction feature 'pic url' obtained by ['urls' x 'images'], as we believe that there is a strong correlation between these two variables, i.e, the emails containing the images, might Also contain relevant number of urls and it will be an interesting feature to classify the type of emails into different labels.
+
 4) Furthermore, we derive Date related features from the date column as follows:
+
 o We take the time stamp to derive these three features:
 a) ‘off_hrs’: The time between 0:00-8:00
 b) ‘work_hrs’: The time between 8:00-18:00 on workdays
 c) ‘aft_work_hrs’: The time after 18:00 on workdays
 o Then, we utilize the day part of the date field to identify whether email was sent on working days or weekends. ‘wk_end’: weekend
+
 o Lastly, we use the month from date field to identify different significant months which we see as discussed in the feature engineering section, can be useful for categorizing certain types of emails. These fields as are follows:
+
 a) ‘time3’: August, may distinguish forum emails
 b) ‘time6’: October, may distinguish spam emails
 c) ‘time4’: November and December, may distinguish promotion emails
+
 ● Target encoding Additionally, in target encoding features are replaced with a blend of posterior probability of the target given categorical value and the prior probability of the target over all the training data. Hence, we have done target encoding on our output variable 'label'.
+
 ● Removing irrelevant fields Finally, we drop off the irrelevant columns such as 'date', 'org' , 'tld' , 'mail type', and 'type' to avoid the problem of overfitting our model.
 
 # Implementing XGBoost: 
